@@ -1,8 +1,8 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
-import SafeAreaView from './SafeAreaView';
-import colors from '../constants/colors';
 import { Entypo } from '@expo/vector-icons';
+import SafeAreaView from '../components/SafeAreaView';
+import colors from '../constants/colors';
 
 const styles = new StyleSheet.create({
   row: {
