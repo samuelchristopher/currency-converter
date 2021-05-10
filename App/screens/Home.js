@@ -1,5 +1,14 @@
-import React from 'react';
-import { ScrollView, View, StyleSheet, StatusBar, Image, Dimensions, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { 
+  ScrollView, 
+  View, 
+  StyleSheet, 
+  StatusBar, 
+  Image, 
+  Dimensions, 
+  Keyboard,
+  Text } 
+from 'react-native';
 import { format } from 'date-fns';
 import { ConversionInput } from '../components/ConversionInput';
 import { Button } from '../components/Button';
@@ -42,7 +51,8 @@ const styles = StyleSheet.create({
       color: colors.white,
       textAlign: 'center'
     }
-})
+});
+
 
 export default () => {
   let baseCurrency = 'USD';
@@ -50,10 +60,27 @@ export default () => {
   let conversionRate = 1.33;
   let date = new Date();
 
+  let [ shouldScroll, setShouldScroll ] = useState(false);
+  
+  useEffect(() => {
+    const showKeyboard = Keyboard.addListener('keyboardDidShow', () => 
+      setShouldScroll(true)
+    );
+  
+    const hideKeyboard = Keyboard.addListener('keyboardDidHide', () => 
+      setShouldScroll(false)
+    );
+  
+    return () => {
+      showKeyboard.remove();
+      hideKeyboard.remove();
+    };
+  }, []);
+
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
-      <ScrollView>
+      <ScrollView scrollEnabled={shouldScroll}>
         <View style={styles.content}>
           <View style={styles.logoContainer}>
             <Image
