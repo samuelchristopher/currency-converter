@@ -100,13 +100,13 @@ export default ({ navigation }) => {
 
           <ConversionInput
             text="USD"
-            onButtonPress={() => alert('yo')}
+            onButtonPress={() => navigation.push('CurrencyList', { title: 'Base Currency' })}
             value="123"
             onChangeText={(text) => console.log("text", text)}
           />
           <ConversionInput
             text="SGD"
-            onButtonPress={() => alert('yo')}
+            onButtonPress={() => navigation.push('CurrencyList', { title: 'Quote Currency' })}
             value="123"
             editable={false}
           />
