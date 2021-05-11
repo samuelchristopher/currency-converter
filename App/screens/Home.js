@@ -64,12 +64,18 @@ const styles = StyleSheet.create({
 
 
 export default ({ navigation }) => {
-  let baseCurrency = 'USD';
-  let quoteCurrency = 'SGD';
+  const [ baseCurrency, setBaseCurrency ] = useState('USD');
+  const [ quoteCurrency, setQuoteCurrency ] = useState('SGD');
+  const [ value, setValue ] = useState('240');
   let conversionRate = 1.33;
   let date = new Date();
 
   let [ shouldScroll, setShouldScroll ] = useState(false);
+
+  const swapCurrencies = () => {
+    setBaseCurrency(quoteCurrency);
+    setQuoteCurrency(baseCurrency);
+  }
 
   return (
     <View style={styles.container}>
@@ -99,15 +105,15 @@ export default ({ navigation }) => {
           <Text style={styles.textHeader}>Currency Converter</Text>
 
           <ConversionInput
-            text="USD"
+            text={baseCurrency}
             onButtonPress={() => navigation.push('CurrencyList', { title: 'Base Currency', activeCurrency: baseCurrency })}
-            value="123"
-            onChangeText={(text) => console.log("text", text)}
+            value={value}
+            onChangeText={(text) => setValue(text)}
           />
           <ConversionInput
-            text="SGD"
+            text={quoteCurrency}
             onButtonPress={() => navigation.push('CurrencyList', { title: 'Quote Currency', activeCurrency: quoteCurrency })}
-            value="123"
+            value={value && `${(parseFloat(value) * conversionRate).toFixed(2)}`}
             editable={false}
           />
 
@@ -115,7 +121,7 @@ export default ({ navigation }) => {
             {`1 ${baseCurrency} = ${conversionRate} ${quoteCurrency} as of ${format(date, 'do MMM, yyyy')}`}
           </Text>
 
-          <Button text="Reverse Currencies" onPress={() => alert('todo')}/>
+          <Button text="Reverse Currencies" onPress={() => swapCurrencies()}/>
           <KeyboardSpacer onToggle={(keyboardVisible) => setShouldScroll(keyboardVisible)}/>
         </View>
       </ScrollView>

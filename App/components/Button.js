@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
   }
 })
 
-export const Button = ({ text }) => (
+export const Button = ({ text, ...rest }) => (
   <View style={styles.buttonContainer}>
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} {...rest}>
       <Image 
         source={require('../assets/images/reverse.png')}
         style={styles.image}
