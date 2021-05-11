@@ -17,7 +17,7 @@ const styles = new StyleSheet.create({
   border: {
     height: StyleSheet.hairlineWidth,
     backgroundColor: colors.border,
-    margin: 20
+    margin: 5
   }
 });
 
