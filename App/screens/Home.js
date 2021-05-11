@@ -13,6 +13,7 @@ import { format } from 'date-fns';
 import { ConversionInput } from '../components/ConversionInput';
 import { Button } from '../components/Button';
 import colors from '../constants/colors';
+import { KeyboardSpacer } from '../components/KeyboardSpacer';
 
 const screen = Dimensions.get('window');
 
@@ -61,21 +62,6 @@ export default () => {
   let date = new Date();
 
   let [ shouldScroll, setShouldScroll ] = useState(false);
-  
-  useEffect(() => {
-    const showKeyboard = Keyboard.addListener('keyboardDidShow', () => 
-      setShouldScroll(true)
-    );
-  
-    const hideKeyboard = Keyboard.addListener('keyboardDidHide', () => 
-      setShouldScroll(false)
-    );
-  
-    return () => {
-      showKeyboard.remove();
-      hideKeyboard.remove();
-    };
-  }, []);
 
   return (
     <View style={styles.container}>
@@ -115,7 +101,7 @@ export default () => {
           </Text>
 
           <Button text="Reverse Currencies" onPress={() => alert('todo')}/>
-          <View style={{ height: screen.height }} />
+          <KeyboardSpacer onToggle={(keyboardVisible) => setShouldScroll(keyboardVisible)}/>
         </View>
       </ScrollView>
     </View>
