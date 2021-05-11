@@ -106,13 +106,13 @@ export default ({ navigation }) => {
 
           <ConversionInput
             text={baseCurrency}
-            onButtonPress={() => navigation.push('CurrencyList', { title: 'Base Currency', activeCurrency: baseCurrency })}
+            onButtonPress={() => navigation.push('CurrencyList', { title: 'Base Currency', activeCurrency: baseCurrency, onChange: (value) => setBaseCurrency(value) })}
             value={value}
             onChangeText={(text) => setValue(text)}
           />
           <ConversionInput
             text={quoteCurrency}
-            onButtonPress={() => navigation.push('CurrencyList', { title: 'Quote Currency', activeCurrency: quoteCurrency })}
+            onButtonPress={() => navigation.push('CurrencyList', { title: 'Quote Currency', activeCurrency: quoteCurrency, onChange: (value) => setQuoteCurrency(value) })}
             value={value && `${(parseFloat(value) * conversionRate).toFixed(2)}`}
             editable={false}
           />

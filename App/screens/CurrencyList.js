@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 export default ({ navigation, route = {} }) => {
     const insets = useSafeArea();
-    const { activeCurrency } = route.params;
+    const { activeCurrency, onChange } = route.params;
     return (
     <View>
         <StatusBar barStyle="dark-content" backgroundColor={colors.white}/>
@@ -29,7 +29,12 @@ export default ({ navigation, route = {} }) => {
                 const selected = activeCurrency === item; 
                 return (<RowItem 
                     text={item} 
-                    onPress={() => navigation.pop()}
+                    onPress={() => {
+                        if (onChange) {
+                            onChange(item);
+                        }
+                        navigation.pop();
+                    }}
                     rightIcon={(
                         selected && <View style={styles.icon}>
                             <Entypo name="check" size={20} color={colors.white}/>
